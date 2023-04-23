@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{layout}
+\usepackage{blindtext}
+\usepackage{fancyhdr}
+\usepackage{quotes}
+\usepackage{csquotes}
+\usepackage{times}
+%
+% For alternative styles, see the biblatex manual:
+% http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf
+%
+% The 'verbose' family of styles produces full citations in footnotes, 
+% with and a variety of options for ibidem abbreviations.
+%
+\usepackage[style=ext-verbose-ibid,backend=biber]{biblatex}
+
+% Include hyperref last
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdfpagemode=FullScreen,
+}
+    
+\bibliography{sources}
+
+% Bibtext online sources
+\DefineBibliographyStrings{german}{
+    urlseen = {aufgerufen am},
+}
+
+% The following two lines are what needs to be added %
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+% Configure the pages
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0mm}
+\fancyfoot[R]{\thepage}
+
+\geometry{
+ a4paper,
+ total={155mm,245mm},
+ left=35mm,
+ top=25mm,
+}
+\onehalfspacing
+
+% Titlepage information
+\title{Facharbeit}
+\author{Jane Doe}
+\date{November 2022}
+
+% Do not indent paragraphs
+\setlength{\parindent}{0em}
+
+% erst Nachname, dann Vorname
+\DeclareNameAlias{default}{family-given}
+
+% Begin main document
+\begin{document}
+
+% No dots in toc
+\makeatletter
+\renewcommand\@dotsep{250}
+\makeatother
+
+% Show the current layout
+%\layout*
+
+% Hide the page number for title and toc
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\pagenumbering{gobble}
+\input{titlepage.tex}
+
+\newpage
+\tableofcontents
+
+% Show page number for the article and begin with 3
+\pagenumbering{arabic}
+\setcounter{page}{2}
+
+% INCLUDE YOUR CHAPTERS HERE
+%\newpage
+%\input{chapters/introduction.tex}
+\newpage
+\input{chapters/chapter1.tex}
+\input{chapters/chapter2.tex}
+%\input{chapters/chapter3.tex}
+%\input{chapters/chapter4.tex}
+%\newpage
+\input{chapters/conclusion.tex}
+
+\newpage
+\begin{appendix}
+  \addcontentsline{toc}{section}{Literaturverzeichnis}
+  \printbibliography
+  \newpage
+  \addcontentsline{toc}{section}{Abbildungsverzeichnis}
+  \listoffigures
+  \newpage
+  \addcontentsline{toc}{section}{Erklärung}
+  {\protect\thispagestyle{empty}}
+  \pagenumbering{gobble}
+  \input{chapters/declaration.tex}
+\end{appendix}
+
+\end{document}
